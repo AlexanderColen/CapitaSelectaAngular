@@ -22,14 +22,16 @@ export class ExpenditureService {
   postExpenditure(description: string,
   					date: string,
   					spent: number,
-  					type: string): Observable<any> {
+  					type: string,
+  					currency: string): Observable<any> {
     let formHeader = "application/x-www-form-urlencoded";
-    
+
     const body = new HttpParams()
       .set('description', description)
       .set('date', date)
       .set('spent', spent.toString())
-      .set('type', type);
+      .set('type', type)
+      .set('currency', currency);
 
 	return this.httpClient.post(this.URL + "new", 
                             body.toString(),

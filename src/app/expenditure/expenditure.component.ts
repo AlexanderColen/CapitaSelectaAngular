@@ -16,7 +16,7 @@ export class ExpenditureComponent implements OnInit {
 
 	private expenditures: Expenditure[];
 	private expenditure: Expenditure;
-	private currency: string;
+	private cur: string;
 	private totalSpent: number = 0;
 	private totalIncome: number = 0;
 
@@ -26,7 +26,8 @@ export class ExpenditureComponent implements OnInit {
   		this.service.fetchAllExpenditures()
 				.subscribe(res => { this.expenditures = res;
 									console.log(res);
-									this.calculateTotals(); });
+									this.calculateTotals();
+									this.cur = res[0].currency; });
   	}
 
 	calculateTotals() {
@@ -46,10 +47,12 @@ export class ExpenditureComponent implements OnInit {
 	}
 
 	onPost(form: NgForm) {
+		//TODO Fix currency.
 		this.service.postExpenditure(form.value.description,
 									form.value.date,
 									form.value.spent,
-									form.value.type)
+									form.value.type,
+									"CAD")
 				.subscribe(res => { this.expenditures.push(res);
 									console.log(res); })
 	}

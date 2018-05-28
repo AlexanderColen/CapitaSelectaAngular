@@ -18,14 +18,14 @@
 			<td>{{ ex.id }}</td>
 			<td>{{ ex.description }}</td>
 			<td>{{ ex.date }}</td>
-			<td>{{ ex.spent | currency : "CAD" : 2 }}</td>
+			<td>{{ ex.spent | currency : ex.currency : 2 }}</td>
 			<td>{{ ex.type }}</td>
 		</tr>
 		<tr class='table-info' *ngIf='totalSpent'>
 			<td>Total</td>
 			<td></td>
 			<td></td>
-			<td>{{ totalSpent | currency : "CAD" : 2 }}</td>
+			<td>{{ totalSpent | currency : cur : 2 }}</td>
 			<td></td>
 		</tr>
 	</tbody>
@@ -36,4 +36,10 @@
 	<input type="text" class='input' placeholder="Enter date" name="date" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
 	<input type="text" class='input' placeholder="Enter spent" name="spent" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
 	<input type="text" class='input' placeholder="Enter type" name="type" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
+	<select disabled name='currency' ngModel>
+    	<option [value]="CAD">Dollar (Canada)</option>
+    	<option [value]="EUR">Euro</option>
+    	<option [value]="USD">Dollar (United States)</option>
+    	<option [value]="GBP">British Pounds</option>
+    </select>
 </form>
