@@ -1,8 +1,22 @@
 export class Expenditure {
-    constructor(private id: number, 
-    			private date: string, 
-    			private description: string, 
-    			private type: string,
-    			private spent: number,
-    			private currency: string) { }
+	public id: number;
+	public date: string;
+	public description: string;
+	public type: string;
+	public spent: number;
+	public currency: string;
+
+    constructor(id: number, 
+    			date: string, 
+    			description: string, 
+    			type: string,
+    			spent: number,
+    			currency: string) {
+    	this.id = id;
+    	this.date = date;
+    	this.description = description;
+    	this.type = type;
+    	this.spent = spent;
+    	this.currency = currency;
+    }
 }

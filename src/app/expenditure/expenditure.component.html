@@ -21,6 +21,13 @@
 			<td>{{ ex.currency }}{{ ex.spent }}</td>
 			<td>{{ ex.type }}</td>
 		</tr>
+		<tr *ngIf='totalSpent'>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>{{ totalSpent }}</td>
+			<td></td>
+		</tr>
 	</tbody>
 </table>
 <p *ngIf='expenditure'>Found expenditure from {{ expenditure.date }} where {{ expenditure.currency }}{{ expenditure.spent }} was spent.</p>
