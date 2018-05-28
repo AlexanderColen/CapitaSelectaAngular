@@ -6,12 +6,16 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class GreetingService {
-  URL = 'http://localhost:8080/greeting/';
+export class ExpenditureService {
+  URL = 'http://localhost:8080/expenditures/';
 
   constructor(protected httpClient: HttpClient) { }
 
-  Greet(name: string): Observable<any> {
-    return this.httpClient.get(this.URL + name);
+  fetchExpenditure(id: string): Observable<any> {
+    return this.httpClient.get(this.URL + id);
+  }
+
+  fetchAllExpenditures(): Observable<any> {
+  	return this.httpClient.get(this.URL);
   }
 }

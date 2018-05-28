@@ -6,19 +6,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { GreetingComponent } from './greeting/greeting.component';
+import { ExpenditureComponent } from './expenditure/expenditure.component';
 
-import { GreetingService } from './greeting/greetingService';
+import { ExpenditureService } from './expenditure/expenditureService';
 
 const appRoutes: Routes = [
-	{ path: '',	redirectTo: 'greeting', pathMatch: 'full' },
-  	{ path: 'greeting', component: GreetingComponent }
+	{ path: '',	redirectTo: 'expenditures', pathMatch: 'full' },
+	{ path: 'expenditures', component: ExpenditureComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    GreetingComponent
+    ExpenditureComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +27,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [GreetingService],
+  providers: [ExpenditureService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
