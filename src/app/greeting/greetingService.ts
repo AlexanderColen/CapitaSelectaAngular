@@ -12,8 +12,6 @@ export class GreetingService {
   constructor(protected httpClient: HttpClient) { }
 
   Greet(name: string): Observable<any> {
-
     return this.httpClient.get(this.URL + name);
-  
   }
 }
