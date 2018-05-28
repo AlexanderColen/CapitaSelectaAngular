@@ -16,6 +16,7 @@ export class ExpenditureComponent implements OnInit {
 
 	private expenditures: Expenditure[];
 	private expenditure: Expenditure;
+	private currency: string;
 	private totalSpent: number = 0;
 	private totalIncome: number = 0;
 
@@ -28,15 +29,28 @@ export class ExpenditureComponent implements OnInit {
 									this.calculateTotals(); });
   	}
 
-  	onFetch(form: NgForm) {
-		this.service.fetchExpenditure(form.value.id)
-				.subscribe(res => { this.expenditure = res;
-									console.log(res); });
-	}
-
 	calculateTotals() {
 		for (let ex of this.expenditures) {
 			this.totalSpent += ex.spent;
 		}
+	}
+
+  	onFetch(form: NgForm) {
+  		if (form.value.id != '') {
+			this.service.fetchExpenditure(form.value.id)
+					.subscribe(res => { this.expenditure = res;
+										console.log(res); });
+		} else {
+			this.expenditure = null;
+		}
+	}
+
+	onPost(form: NgForm) {
+		this.service.postExpenditure(form.value.description,
+									form.value.date,
+									form.value.spent,
+									form.value.type)
+				.subscribe(res => { this.expenditures.push(res);
+									console.log(res); })
 	}
 }

@@ -1,10 +1,10 @@
 <h1>Expenditures</h1>
 <form name="fetchForm" (ngSubmit)="onFetch(f)" #f="ngForm">
-    <input type="text" placeholder="Enter id" name="id" ngModel />
-    <button type="submit" class="btn btn-success">Fetch</button>
+    <input type="text" class='input' placeholder="Enter id" name="id" (keydown.enter)='onFetch(f)' ngModel autocomplete="off" />
 </form>
-<table *ngIf='expenditures'>
-	<thead>
+<p *ngIf='expenditure'>Found expenditure from {{ expenditure.date }} where {{ expenditure.spent | currency : "CAD" : 2 }} was spent.</p>
+<table *ngIf='expenditures' class='table table-bordered table-hover'>
+	<thead class='thead-dark'>
 		<tr>
 			<th>ID</th>
 			<th>Description</th>
@@ -18,16 +18,22 @@
 			<td>{{ ex.id }}</td>
 			<td>{{ ex.description }}</td>
 			<td>{{ ex.date }}</td>
-			<td>{{ ex.currency }}{{ ex.spent }}</td>
+			<td>{{ ex.spent | currency : "CAD" : 2 }}</td>
 			<td>{{ ex.type }}</td>
 		</tr>
-		<tr *ngIf='totalSpent'>
+		<tr class='table-info' *ngIf='totalSpent'>
+			<td>Total</td>
 			<td></td>
 			<td></td>
-			<td></td>
-			<td>{{ totalSpent }}</td>
+			<td>{{ totalSpent | currency : "CAD" : 2 }}</td>
 			<td></td>
 		</tr>
 	</tbody>
 </table>
-<p *ngIf='expenditure'>Found expenditure from {{ expenditure.date }} where {{ expenditure.currency }}{{ expenditure.spent }} was spent.</p>
+<h2>Insert New Expenditure</h2>
+<form name="postForm" (ngSubmit)="onPost(f)" #g="ngForm">
+	<input type="text" class='input' placeholder="Enter description" name="description" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
+	<input type="text" class='input' placeholder="Enter date" name="date" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
+	<input type="text" class='input' placeholder="Enter spent" name="spent" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
+	<input type="text" class='input' placeholder="Enter type" name="type" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
+</form>

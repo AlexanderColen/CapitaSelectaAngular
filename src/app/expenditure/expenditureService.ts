@@ -18,4 +18,22 @@ export class ExpenditureService {
   fetchAllExpenditures(): Observable<any> {
   	return this.httpClient.get(this.URL);
   }
+
+  postExpenditure(description: string,
+  					date: string,
+  					spent: number,
+  					type: string): Observable<any> {
+    let formHeader = "application/x-www-form-urlencoded";
+    
+    const body = new HttpParams()
+      .set('description', description)
+      .set('date', date)
+      .set('spent', spent.toString())
+      .set('type', type);
+
+	return this.httpClient.post(this.URL + "new", 
+                            body.toString(),
+                            { headers: { 'Content-type':formHeader }
+                            );
+  }
 }
