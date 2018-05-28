@@ -1,0 +1,6 @@
+<h1>Greeting</h1>
+<form name="greetForm" (ngSubmit)="onGreet(f)" #f="ngForm">
+    <input type="text" placeholder="Enter name" name="name" ngModel />
+    <button type="submit" class="btn btn-success">Greet</button>
+</form>
+<p *ngIf='greeting'>{{ greeting.content }}</p>
