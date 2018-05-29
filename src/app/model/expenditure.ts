@@ -5,18 +5,21 @@ export class Expenditure {
 	public type: string;
 	public spent: number;
 	public currency: string;
+    public debtID: number;
 
     constructor(id: number, 
     			date: string, 
     			description: string, 
     			type: string,
     			spent: number,
-    			currency: string) {
+    			currency: string,
+                debtID: number) {
     	this.id = id;
     	this.date = date;
     	this.description = description;
     	this.type = type;
     	this.spent = spent;
     	this.currency = currency;
+        this.debtID  = debtID;
     }
 }

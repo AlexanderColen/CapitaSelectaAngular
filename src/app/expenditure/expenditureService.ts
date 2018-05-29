@@ -35,7 +35,7 @@ export class ExpenditureService {
 
 	return this.httpClient.post(this.URL + "new", 
                             body.toString(),
-                            { headers: { 'Content-type':formHeader }
+                            { headers: { 'Content-type':formHeader } }
                             );
   }
 }
