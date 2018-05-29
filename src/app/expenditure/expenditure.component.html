@@ -11,6 +11,7 @@
 			<th>Date</th>
 			<th>Spent</th>
 			<th>Type</th>
+			<th>Remove</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,12 +21,16 @@
 			<td>{{ ex.date }}</td>
 			<td>{{ ex.spent | currency : ex.currency : 2 }}</td>
 			<td>{{ ex.type }}</td>
+			<td>
+				<button class='btn btn-danger' (click)='onDelete(ex.id)'><strong>X</strong></button>
+			</td>
 		</tr>
 		<tr class='table-info' *ngIf='totalSpent'>
 			<td>Total</td>
 			<td></td>
 			<td></td>
 			<td>{{ totalSpent | currency : cur : 2 }}</td>
+			<td></td>
 			<td></td>
 		</tr>
 	</tbody>

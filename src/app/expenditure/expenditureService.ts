@@ -38,4 +38,16 @@ export class ExpenditureService {
                             { headers: { 'Content-type':formHeader } }
                             );
   }
+
+  deleteExpenditure(id: number) {
+    let formHeader = "application/x-www-form-urlencoded";
+
+    const body = new HttpParams()
+      .set('id', id);
+
+  return this.httpClient.post(this.URL + "delete", 
+                            body.toString(),
+                            { headers: { 'Content-type':formHeader } }
+                            );
+  }
 }

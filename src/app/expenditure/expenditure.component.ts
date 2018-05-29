@@ -36,6 +36,17 @@ export class ExpenditureComponent implements OnInit {
 		}
 	}
 
+	removeExpenditure(id: number, outcome: boolean) {
+		if (outcome) {
+			for (let ex of this.expenditures) {
+				if (ex.id == id) {
+					let index = this.expenditures.indexOf(ex);
+					this.expenditures.splice(index, 1);
+				}
+			}
+		}
+	}
+
   	onFetch(form: NgForm) {
   		if (form.value.id != '') {
 			this.service.fetchExpenditure(form.value.id)
@@ -54,6 +65,11 @@ export class ExpenditureComponent implements OnInit {
 									form.value.type,
 									"CAD")
 				.subscribe(res => { this.expenditures.push(res);
-									console.log(res); })
+									console.log(res); });
+	}
+
+	onDelete(id: number) {
+		this.service.deleteExpenditure(id)
+				.subscribe(res => { this.removeExpenditure(id, res); });
 	}
 }
