@@ -31,6 +31,8 @@ export class ExpenditureComponent implements OnInit {
   	}
 
 	calculateTotals() {
+		this.totalSpent = 0;
+		
 		for (let ex of this.expenditures) {
 			this.totalSpent += ex.spent;
 		}
@@ -40,10 +42,13 @@ export class ExpenditureComponent implements OnInit {
 		if (outcome) {
 			for (let ex of this.expenditures) {
 				if (ex.id == id) {
+					this.totalSpent -= ex.spent;
 					let index = this.expenditures.indexOf(ex);
 					this.expenditures.splice(index, 1);
 				}
 			}
+
+			this.calculateTotals();
 		}
 	}
 
@@ -65,11 +70,12 @@ export class ExpenditureComponent implements OnInit {
 									form.value.type,
 									"CAD")
 				.subscribe(res => { this.expenditures.push(res);
-									console.log(res); });
+									console.log(res);
+									this.calculateTotals(); });
 	}
 
 	onDelete(id: number) {
 		this.service.deleteExpenditure(id)
-				.subscribe(res => { this.removeExpenditure(id, res); });
+				.subscribe((res: boolean) => { this.removeExpenditure(id, res); });
 	}
 }

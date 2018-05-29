@@ -39,7 +39,7 @@ export class ExpenditureService {
                             );
   }
 
-  deleteExpenditure(id: number) {
+  deleteExpenditure(id: string) {
     let formHeader = "application/x-www-form-urlencoded";
 
     const body = new HttpParams()
