@@ -39,11 +39,11 @@ export class ExpenditureService {
                             );
   }
 
-  deleteExpenditure(id: string) {
+  deleteExpenditure(id: number) {
     let formHeader = "application/x-www-form-urlencoded";
 
     const body = new HttpParams()
-      .set('id', id);
+      .set('id', id.toString());
 
   return this.httpClient.post(this.URL + "delete", 
                             body.toString(),

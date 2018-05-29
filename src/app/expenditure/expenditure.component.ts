@@ -19,6 +19,7 @@ export class ExpenditureComponent implements OnInit {
 	private cur: string;
 	private totalSpent: number = 0;
 	private totalIncome: number = 0;
+	private isDebtPayment: boolean  = false;
 
   	constructor(private service : ExpenditureService) { }
 
@@ -72,6 +73,12 @@ export class ExpenditureComponent implements OnInit {
 				.subscribe(res => { this.expenditures.push(res);
 									console.log(res);
 									this.calculateTotals(); });
+
+		if (this.isDebtPayment) {
+			//TODO Insert debts from debt microservice.
+		}
+
+		form.reset();
 	}
 
 	onDelete(id: number) {

@@ -1,50 +1,60 @@
-<h1>Expenditures</h1>
-<form name="fetchForm" (ngSubmit)="onFetch(f)" #f="ngForm">
-    <input type="text" class='input' placeholder="Enter id" name="id" (keydown.enter)='onFetch(f)' ngModel autocomplete="off" />
-</form>
-<p *ngIf='expenditure'>Found expenditure from {{ expenditure.date }} where {{ expenditure.spent | currency : "CAD" : 2 }} was spent.</p>
-<table *ngIf='expenditures' class='table table-bordered table-hover'>
-	<thead class='thead-dark'>
-		<tr>
-			<th>ID</th>
-			<th>Description</th>
-			<th>Date</th>
-			<th>Spent</th>
-			<th>Type</th>
-			<th>Remove</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor='let ex of expenditures'>
-			<td>{{ ex.id }}</td>
-			<td>{{ ex.description }}</td>
-			<td>{{ ex.date }}</td>
-			<td>{{ ex.spent | currency : ex.currency : 2 }}</td>
-			<td>{{ ex.type }}</td>
-			<td>
-				<button class='btn btn-danger' (click)='onDelete(ex.id)'><strong>X</strong></button>
-			</td>
-		</tr>
-		<tr class='table-info' *ngIf='totalSpent'>
-			<td>Total</td>
-			<td></td>
-			<td></td>
-			<td>{{ totalSpent | currency : cur : 2 }}</td>
-			<td></td>
-			<td></td>
-		</tr>
-	</tbody>
-</table>
-<h2>Insert New Expenditure</h2>
-<form name="postForm" (ngSubmit)="onPost(f)" #g="ngForm">
-	<input type="text" class='input' placeholder="Enter description" name="description" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
-	<input type="text" class='input' placeholder="Enter date" name="date" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
-	<input type="text" class='input' placeholder="Enter spent" name="spent" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
-	<input type="text" class='input' placeholder="Enter type" name="type" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
-	<select disabled name='currency' ngModel>
-    	<option [value]="CAD">Dollar (Canada)</option>
-    	<option [value]="EUR">Euro</option>
-    	<option [value]="USD">Dollar (United States)</option>
-    	<option [value]="GBP">British Pounds</option>
-    </select>
-</form>
+<div class='content'>
+	<h1>Expenditures</h1>
+	<form id='formFetch' name="fetchForm" (ngSubmit)="onFetch(f)" #f="ngForm">
+	    <input type="text" class='input' placeholder="Enter id" name="id" (keydown.enter)='onFetch(f)' ngModel autocomplete="off" />
+	</form>
+	<p *ngIf='expenditure'>Found expenditure from {{ expenditure.date }} where {{ expenditure.spent | currency : "CAD" : 2 }} was spent.</p>
+	<table *ngIf='expenditures' class='table table-bordered table-hover'>
+		<thead class='thead-dark'>
+			<tr>
+				<th>ID</th>
+				<th>Description</th>
+				<th>Date</th>
+				<th>Spent</th>
+				<th>Type</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor='let ex of expenditures'>
+				<td>{{ ex.id }}</td>
+				<td>{{ ex.description }}</td>
+				<td>{{ ex.date }}</td>
+				<td>{{ ex.spent | currency : ex.currency : 2 }}</td>
+				<td>{{ ex.type }}</td>
+				<td>
+					<button class='btn btn-danger' (click)='onDelete(ex.id)'><strong>X</strong></button>
+				</td>
+			</tr>
+			<tr class='table-info' *ngIf='totalSpent'>
+				<td>Total</td>
+				<td></td>
+				<td></td>
+				<td>{{ totalSpent | currency : cur : 2 }}</td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	<h2>Insert New Expenditure</h2>
+	<form id='formPost' name="postForm" (ngSubmit)="onPost(f)" #g="ngForm">
+		<label>Description:</label>
+		<input type="text" class='input' placeholder="Enter description" name="description" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
+		<label>Date:</label>
+		<input type="text" class='input' placeholder="Enter date" name="date" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
+		<label>Amount Spent:</label>
+		<input type="text" class='input' placeholder="Enter spent" name="spent" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
+		<label>Type:</label>
+		<input type="text" class='input' placeholder="Enter type" name="type" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
+		<label>Debt Payment:</label>
+		<input type="checkbox" class='input' name="debt" [(ngModel)]="isDebtPayment" />
+		<br>
+		<!--TODO Dynamically fetch and add debts here.-->
+		<div *ngIf='isDebtPayment'>
+			<div class='row'>
+				<input type="radio" class='input' name="debt" [(ngModel)]="isDebtPayment" />
+				<p id='radioBtnInputText'>Debt Description - Amount due: {{ 123.234 | currency : "CAD" }}</p>
+			</div>
+		</div>
+	</form>
+</div>
