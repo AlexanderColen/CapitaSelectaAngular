@@ -6,18 +6,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { DebtComponent } from './debt/debt.component';
 import { ExpenditureComponent } from './expenditure/expenditure.component';
 
-import { ExpenditureService } from './expenditure/expenditureService';
+import { DebtService } from './service/debtService';
+import { ExpenditureService } from './service/expenditureService';
 
 const appRoutes: Routes = [
 	{ path: '',	redirectTo: 'expenditures', pathMatch: 'full' },
-	{ path: 'expenditures', component: ExpenditureComponent }
+  { path: 'expenditures', component: ExpenditureComponent },
+  { path: 'debts', component: DebtComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    DebtComponent,
     ExpenditureComponent
   ],
   imports: [
@@ -27,7 +31,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [ExpenditureService],
+  providers: [DebtService, ExpenditureService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -49,11 +49,13 @@
 		<label>Debt Payment:</label>
 		<input type="checkbox" class='input' name="debt" [(ngModel)]="isDebtPayment" />
 		<br>
-		<!--TODO Dynamically fetch and add debts here.-->
+		<!--TODO Dynamically add debts here.-->
 		<div *ngIf='isDebtPayment'>
-			<div class='row'>
-				<input type="radio" class='input' name="debt" [(ngModel)]="isDebtPayment" />
-				<p id='radioBtnInputText'>Debt Description - Amount due: {{ 123.234 | currency : "CAD" }}</p>
+			<div *ngIf='debts'>
+				<div class='row' *ngFor='let debt of debts'>
+					<input type="radio" class='input' name="debt" />
+					<p  class="font-weight-light" id='radioBtnInputText'>{{ debt.description }} - {{ debt.amount | currency : cur : 2 }} - {{ debt.interest }}%</p>
+				</div>
 			</div>
 		</div>
 	</form>

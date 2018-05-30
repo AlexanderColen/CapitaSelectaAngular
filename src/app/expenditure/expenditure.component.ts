@@ -3,8 +3,10 @@ import { NgForm } from '@angular/forms';
 import { Http,Response } from '@angular/http';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { ExpenditureService } from './expenditureService';
+import { DebtService } from '../service/debtService';
+import { ExpenditureService } from '../service/expenditureService';
 
+import { Debt } from '../model/Debt';
 import { Expenditure } from '../model/Expenditure';
 
 @Component({
@@ -14,6 +16,7 @@ import { Expenditure } from '../model/Expenditure';
 })
 export class ExpenditureComponent implements OnInit {
 
+	private debts: Debt[];
 	private expenditures: Expenditure[];
 	private expenditure: Expenditure;
 	private cur: string;
@@ -21,14 +24,26 @@ export class ExpenditureComponent implements OnInit {
 	private totalIncome: number = 0;
 	private isDebtPayment: boolean  = false;
 
-  	constructor(private service : ExpenditureService) { }
+  	constructor(private expenditureService : ExpenditureService,
+  				private debtService: DebtService) { }
 
   	ngOnInit() {
-  		this.service.fetchAllExpenditures()
+  		this.expenditureService.fetchAllExpenditures()
 				.subscribe(res => { this.expenditures = res;
 									console.log(res);
 									this.calculateTotals();
 									this.cur = res[0].currency; });
+
+		this.debts = [];
+		this.debts.push(new Debt(1, "MoneyMart", "MONEYMART", 12, 555.55, "CAD"));
+		this.debts.push(new Debt(2, "Alex", "PERSONAL", 0, 2000.00, "CAD"));
+		console.log(this.debts);
+
+		/*
+		this.debtService.fetchAllDebts()
+				.subscribe(res => { this.debts = res;
+									console.log(res); });
+		*/
   	}
 
 	calculateTotals() {
@@ -55,7 +70,7 @@ export class ExpenditureComponent implements OnInit {
 
   	onFetch(form: NgForm) {
   		if (form.value.id != '') {
-			this.service.fetchExpenditure(form.value.id)
+			this.expenditureService.fetchExpenditure(form.value.id)
 					.subscribe(res => { this.expenditure = res;
 										console.log(res); });
 		} else {
@@ -65,7 +80,7 @@ export class ExpenditureComponent implements OnInit {
 
 	onPost(form: NgForm) {
 		//TODO Fix currency.
-		this.service.postExpenditure(form.value.description,
+		this.expenditureService.postExpenditure(form.value.description,
 									form.value.date,
 									form.value.spent,
 									form.value.type,
@@ -75,14 +90,14 @@ export class ExpenditureComponent implements OnInit {
 									this.calculateTotals(); });
 
 		if (this.isDebtPayment) {
-			//TODO Insert debts from debt microservice.
+			//this.debtService.postDebtPayment(form.value.date, form.value.spent, form.value.debtID);
 		}
 
 		form.reset();
 	}
 
 	onDelete(id: number) {
-		this.service.deleteExpenditure(id)
+		this.expenditureService.deleteExpenditure(id)
 				.subscribe((res: boolean) => { this.removeExpenditure(id, res); });
 	}
 }
