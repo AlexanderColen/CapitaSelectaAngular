@@ -7,7 +7,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ExpenditureService {
-  URL = 'http://localhost:8080/expenditures/';
+  URL = 'http://localhost:8090/expenditures/';
 
   constructor(protected httpClient: HttpClient) { }
 

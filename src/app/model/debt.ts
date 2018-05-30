@@ -1,4 +1,4 @@
-import { Expenditure } from './Expenditure';
+import { Payment } from './Payment';
 
 export class Debt {
 	public id: number;
@@ -7,7 +7,7 @@ export class Debt {
 	public interest: number;
 	public amount: number;
     public currency: string;
-    public payments: Expenditure[];
+    public payments: Payment[];
 
     constructor(id: number,
     			description: string, 
@@ -23,7 +23,7 @@ export class Debt {
     	this.currency = currency;
     }
 
-    setPayments(payments: Expenditure[]) {
+    setPayments(payments: Payment[]) {
         this.payments = payments;
     }
 }
