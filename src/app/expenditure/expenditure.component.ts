@@ -34,16 +34,9 @@ export class ExpenditureComponent implements OnInit {
 									this.calculateTotals();
 									this.cur = res[0].currency; });
 
-		this.debts = [];
-		this.debts.push(new Debt(1, "MoneyMart", "MONEYMART", 12, 555.55, "CAD"));
-		this.debts.push(new Debt(2, "Alex", "PERSONAL", 0, 2000.00, "CAD"));
-		console.log(this.debts);
-
-		/*
 		this.debtService.fetchAllDebts()
 				.subscribe(res => { this.debts = res;
 									console.log(res); });
-		*/
   	}
 
 	calculateTotals() {
