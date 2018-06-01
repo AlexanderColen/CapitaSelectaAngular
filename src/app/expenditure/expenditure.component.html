@@ -2,6 +2,7 @@
 	<h1>Expenditures</h1>
 	<form id='formFetch' name="fetchForm" (ngSubmit)="onFetch(f)" #f="ngForm">
 	    <input type="text" class='input' placeholder="Enter id" name="id" (keydown.enter)='onFetch(f)' ngModel autocomplete="off" />
+    	<button type="submit" class="btn btn-success">Fetch</button>
 	</form>
 	<p *ngIf='expenditure'>Found expenditure from {{ expenditure.date }} where {{ expenditure.spent | currency : "CAD" : 2 }} was spent.</p>
 	<table *ngIf='expenditures' class='table table-bordered table-hover'>
@@ -48,12 +49,12 @@
 		<input type="text" class='input' placeholder="Enter type" name="type" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
 		<label>Debt Payment:</label>
 		<input type="checkbox" class='input' name="debt" [(ngModel)]="isDebtPayment" />
+    	<button type="submit" class="btn btn-success">Post</button>
 		<br>
-		<!--TODO Dynamically add debts here.-->
 		<div *ngIf='isDebtPayment'>
 			<div *ngIf='debts'>
-				<div class='row' *ngFor='let debt of debts'>
-					<input type="radio" class='input' name="debt" />
+				<div class='row' *ngFor='let debt of debts; let idx = index'>
+					<input type="radio" class='input' name="debt" [checked]="idx === 0" [value]="debt.id" (change)='onDebtChange(debt.id)' />
 					<p  class="font-weight-light" id='radioBtnInputText'>{{ debt.description }} - {{ debt.amount | currency : cur : 2 }} - {{ debt.interest }}%</p>
 				</div>
 			</div>

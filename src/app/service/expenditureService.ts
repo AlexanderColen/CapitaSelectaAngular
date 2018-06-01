@@ -23,7 +23,8 @@ export class ExpenditureService {
   					date: string,
   					spent: number,
   					type: string,
-  					currency: string): Observable<any> {
+  					currency: string,
+            debtID: number): Observable<any> {
     let formHeader = "application/x-www-form-urlencoded";
 
     const body = new HttpParams()
@@ -31,7 +32,8 @@ export class ExpenditureService {
       .set('date', date)
       .set('spent', spent.toString())
       .set('type', type)
-      .set('currency', currency);
+      .set('currency', currency)
+      .set('debtID', debtID.toString());
     
     return this.httpClient.post(this.URL + "new", 
                             body.toString(),

@@ -49,7 +49,7 @@ export class DebtService {
       .set('date', date)
       .set('amount', amount.toString());
 
-    return this.httpClient.post(this.URL + debtID + "/payment", 
+    return this.httpClient.post(this.URL + debtID + "/payments/new", 
                             body.toString(),
                             { headers: { 'Content-type':formHeader } }
                             );
