@@ -1,0 +1,22 @@
+.content {
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+.row {
+	margin: 0;
+}
+
+#formPostPayment input[type='text'] {
+	margin-right: 1%;
+}
+
+#formPostPayment input[type='checkbox'],
+#formPostPayment input[type='radio'] {
+	margin-right: 5px;
+}
+
+#radioBtnInputText {
+	margin-bottom: 8px;
+	margin-top: 8px;
+}

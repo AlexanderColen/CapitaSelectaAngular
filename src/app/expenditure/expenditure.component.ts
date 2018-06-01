@@ -21,7 +21,6 @@ export class ExpenditureComponent implements OnInit {
 	private expenditure: Expenditure;
 	private cur: string;
 	private totalSpent: number = 0;
-	private totalIncome: number = 0;
 	private isDebtPayment: boolean  = false;
 	private selectedDebt: number;
 
@@ -31,13 +30,11 @@ export class ExpenditureComponent implements OnInit {
   	ngOnInit() {
   		this.expenditureService.fetchAllExpenditures()
 				.subscribe(res => { this.expenditures = res;
-									console.log(res);
 									this.calculateTotals();
 									this.cur = res[0].currency; });
 
 		this.debtService.fetchAllDebts()
 				.subscribe(res => { this.debts = res;
-									console.log(res);
 									this.selectedDebt = res[0].id; });
   	}
 
@@ -66,8 +63,7 @@ export class ExpenditureComponent implements OnInit {
   	onFetch(form: NgForm) {
   		if (form.value.id != '') {
 			this.expenditureService.fetchExpenditure(form.value.id)
-					.subscribe(res => { this.expenditure = res;
-										console.log(res); });
+					.subscribe(res => { this.expenditure = res; });
 		} else {
 			this.expenditure = null;
 		}
@@ -77,11 +73,10 @@ export class ExpenditureComponent implements OnInit {
 		let debtID = 0;
 
 		if (this.isDebtPayment) {
-			console.log(this.selectedDebt);
 			debtID = this.selectedDebt;
 		}
 
-		//TODO Fix currency.
+		//TODO Fix currency with select box or something.
 		this.expenditureService.postExpenditure(form.value.description,
 									form.value.date,
 									form.value.spent,
@@ -89,7 +84,6 @@ export class ExpenditureComponent implements OnInit {
 									"CAD",
 									debtID)
 				.subscribe(res => { this.expenditures.push(res);
-									console.log(res);
 									this.calculateTotals(); });
 		form.reset();
 	}

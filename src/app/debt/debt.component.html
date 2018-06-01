@@ -1,3 +1,92 @@
-<p>
-  debt works!
-</p>
+<div class='content'>
+	<h1>Debts</h1>
+	<table *ngIf='debts' class='table table-bordered table-hover'>
+		<thead class='thead-dark'>
+			<tr>
+				<th>ID</th>
+				<th>Description</th>
+				<th>Date</th>
+				<th>Amount</th>
+				<th>Interest</th>
+				<th>Type</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor='let debt of debts'>
+				<td>{{ debt.id }}</td>
+				<td>{{ debt.description }}</td>
+				<td>{{ debt.date }}</td>
+				<td>{{ debt.amount | currency : debt.currency : 2 }}</td>
+				<td>{{ debt.interest }}</td>
+				<td>{{ debt.type }}</td>
+				<td>
+					<button class='btn btn-danger' (click)='onDeleteDebt(debt.id)'><strong>X</strong></button>
+				</td>
+			</tr>
+			<tr class='table-info' *ngIf='totalDebtAmount'>
+				<td>Total</td>
+				<td></td>
+				<td></td>
+				<td>{{ totalDebtAmount | currency : cur : 2 }}</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	<form id='formPostDebt' name="postDebtForm" (ngSubmit)="onPostDebt(f)" #f="ngForm">
+		<label>Description:</label>
+		<input type="text" class='input' placeholder="Enter description" name="description" (keydown.enter)='onPostDebt(f)' ngModel autocomplete="off" />
+		<label>Date:</label>
+		<input type="text" class='input' placeholder="Enter date" name="date" (keydown.enter)='onPostDebt(f)' ngModel autocomplete="off" />
+		<label>Amount:</label>
+		<input type="text" class='input' placeholder="Enter amount" name="spent" (keydown.enter)='onPostDebt(f)' ngModel autocomplete="off" />
+		<label>Type:</label>
+		<input type="text" class='input' placeholder="Enter type" name="type" (keydown.enter)='onPostDebt(f)' ngModel autocomplete="off" />
+    	<button type="submit" class="btn btn-success">Post</button>
+	</form>
+	<hr>
+	<h2>Payments</h2>
+	<table *ngIf='payments' class='table table-bordered table-hover'>
+		<thead class='thead-dark'>
+			<tr>
+				<th>ID</th>
+				<th>Date</th>
+				<th>Spent</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor='let payment of payments'>
+				<td>{{ payment.id }}</td>
+				<td>{{ payment.date }}</td>
+				<td>{{ payment.spent | currency : payment.currency : 2 }}</td>
+				<td>
+					<button class='btn btn-danger' (click)='onDeletePayment(payment.id)'><strong>X</strong></button>
+				</td>
+			</tr>
+			<tr class='table-info' *ngIf='totalPaymentAmount'>
+				<td>Total</td>
+				<td></td>
+				<td>{{ totalPaymentAmount | currency : cur : 2 }}</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	<form id='formPostPayment' name="postPaymentForm" (ngSubmit)="onPostPayment(g)" #g="ngForm">
+		<label>Date:</label>
+		<input type="text" class='input' placeholder="Enter date" name="date" (keydown.enter)='onPostPayment(g)' ngModel autocomplete="off" />
+		<label>Amount:</label>
+		<input type="text" class='input' placeholder="Enter amount" name="spent" (keydown.enter)='onPostPayment(g)' ngModel autocomplete="off" />
+		<br>
+		<label>Corresponding Debt:</label>
+		<div *ngIf='debts'>
+			<div class='row' *ngFor='let debt of debts'>
+				<input type="radio" class='input' name="debt" [value]="debt.id" (change)='onDebtChange(debt.id)' />
+				<p  class="font-weight-light" id='radioBtnInputText'>{{ debt.description }} - {{ debt.amount | currency : cur : 2 }} - {{ debt.interest }}%</p>
+			</div>
+		</div>
+    	<button type="submit" class="btn btn-success" [disabled]='!debtSelected'>Post</button>
+	</form>
+</div>

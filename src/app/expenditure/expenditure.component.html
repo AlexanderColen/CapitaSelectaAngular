@@ -38,7 +38,7 @@
 		</tbody>
 	</table>
 	<h2>Insert New Expenditure</h2>
-	<form id='formPost' name="postForm" (ngSubmit)="onPost(f)" #g="ngForm">
+	<form id='formPost' name="postForm" (ngSubmit)="onPost(g)" #g="ngForm">
 		<label>Description:</label>
 		<input type="text" class='input' placeholder="Enter description" name="description" (keydown.enter)='onPost(g)' ngModel autocomplete="off" />
 		<label>Date:</label>

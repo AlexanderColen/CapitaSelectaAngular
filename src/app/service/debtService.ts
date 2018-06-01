@@ -11,12 +11,12 @@ export class DebtService {
 
   constructor(protected httpClient: HttpClient) { }
 
-  fetchDebt(id: string): Observable<any> {
-    return this.httpClient.get(this.URL + id);
+  fetchAllDebts(): Observable<any> {
+    return this.httpClient.get(this.URL);
   }
 
-  fetchAllDebts(): Observable<any> {
-  	return this.httpClient.get(this.URL);
+  fetchAllPayments(): Observable<any> {
+    return this.httpClient.get(this.URL + 'payments');
   }
 
   postDebt(description: string,
@@ -39,29 +39,41 @@ export class DebtService {
                             );
   }
 
-  postDebtPayment(date: string,
-                  amount: number,
-                  debtID: number): Observable<any> {
-    let formHeader = "application/x-www-form-urlencoded";
-
-    const body = new HttpParams()
-      .set('id', debtID.toString())
-      .set('date', date)
-      .set('amount', amount.toString());
-
-    return this.httpClient.post(this.URL + debtID + "/payments/new", 
-                            body.toString(),
-                            { headers: { 'Content-type':formHeader } }
-                            );
-  }
-
-  deleteDebt(id: number) {
+  deleteDebt(id: number): Observable<any> {
     let formHeader = "application/x-www-form-urlencoded";
 
     const body = new HttpParams()
       .set('id', id.toString());
 
   return this.httpClient.post(this.URL + "delete", 
+                            body.toString(),
+                            { headers: { 'Content-type':formHeader } }
+                            );
+  }
+
+  postDebtPayment(date: string,
+                  spent: number,
+                  debtID: number): Observable<any> {
+    let formHeader = "application/x-www-form-urlencoded";
+
+    const body = new HttpParams()
+      .set('date', date)
+      .set('spent', spent.toString())
+      .set('id', debtID.toString());
+
+    return this.httpClient.post(this.URL + debtID + "/payments/new/yes", 
+                            body.toString(),
+                            { headers: { 'Content-type':formHeader } }
+                            );
+  }
+
+  deleteDebtPayment(id: number): Observable<any> {
+    let formHeader = "application/x-www-form-urlencoded";
+
+    const body = new HttpParams()
+      .set('id', id.toString());
+
+  return this.httpClient.post(this.URL + "payments/delete", 
                             body.toString(),
                             { headers: { 'Content-type':formHeader } }
                             );

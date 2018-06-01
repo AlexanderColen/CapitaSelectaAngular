@@ -35,13 +35,13 @@ export class ExpenditureService {
       .set('currency', currency)
       .set('debtID', debtID.toString());
     
-    return this.httpClient.post(this.URL + "new", 
+    return this.httpClient.post(this.URL + "new/yes", 
                             body.toString(),
                             { headers: { 'Content-type':formHeader } }
                             );
   }
 
-  deleteExpenditure(id: number) {
+  deleteExpenditure(id: number): Observable<any> {
     let formHeader = "application/x-www-form-urlencoded";
 
     const body = new HttpParams()

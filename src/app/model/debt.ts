@@ -11,7 +11,7 @@ export class Debt {
     public payments: Payment[];
 
     constructor(id: number,
-                date: string;
+                date: string,
     			description: string, 
     			type: string,
                 interest: number,
