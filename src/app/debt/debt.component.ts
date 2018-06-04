@@ -99,6 +99,7 @@ export class DebtComponent implements OnInit {
 		//TODO Fix currency.
 		this.debtService.postDebt(form.value.description,
 								form.value.date,
+								form.value.interest,
 								form.value.amount,
 								form.value.type,
 								'CAD')

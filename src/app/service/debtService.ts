@@ -21,6 +21,7 @@ export class DebtService {
 
   postDebt(description: string,
   					date: string,
+            interest: number,
   					amount: number,
   					type: string,
   					currency: string): Observable<any> {
@@ -29,6 +30,7 @@ export class DebtService {
     const body = new HttpParams()
       .set('description', description)
       .set('date', date)
+      .set('interest', interest.toString())
       .set('amount', amount.toString())
       .set('type', type)
       .set('currency', currency);
